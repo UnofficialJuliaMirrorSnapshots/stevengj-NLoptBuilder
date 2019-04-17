@@ -3,7 +3,7 @@ using BinaryBuilder
 # Collection of sources required to build NLopt
 sources = [
     "https://github.com/stevengj/nlopt.git" =>
-    "24fc75fa160978e0f3d757cbe54e8d858bd25ac9", # v2.5.0
+    "5351d0fbc8ca2a7418a77200c4408ff80fd8eaa1", # v2.6.1
 ]
 
 # Bash recipe for building across all platforms
@@ -12,7 +12,7 @@ cd $WORKSPACE/srcdir/nlopt
 
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=$prefix -DCMAKE_TOOLCHAIN_FILE=/opt/$target/$target.toolchain -DNLOPT_CXX=On -DNLOPT_PYTHON=Off -DNLOPT_OCTAVE=Off -DNLOPT_MATLAB=Off -DNLOPT_GUILE=Off -DNLOPT_SWIG=Off -DNLOPT_LINK_PYTHON=Off ..
+cmake -DCMAKE_INSTALL_PREFIX=$prefix -DCMAKE_TOOLCHAIN_FILE=/opt/$target/$target.toolchain -DNLOPT_PYTHON=Off -DNLOPT_OCTAVE=Off -DNLOPT_MATLAB=Off -DNLOPT_GUILE=Off -DNLOPT_SWIG=Off -DNLOPT_LINK_PYTHON=Off ..
 make && make install
 """
 
@@ -22,7 +22,7 @@ platforms = supported_platforms() # build on all supported platforms
 
 # The products that we will ensure are always built
 products(prefix) = [
-    LibraryProduct(prefix, "libnlopt_cxx", :libnlopt),
+    LibraryProduct(prefix, "libnlopt", :libnlopt),
 ]
 
 # Dependencies that must be installed before this package can be built
@@ -30,5 +30,5 @@ dependencies = [
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
-build_tarballs(ARGS, "NLopt", v"2.5.0", sources, script, platforms, products, dependencies)
+build_tarballs(ARGS, "NLopt", v"2.6.1", sources, script, platforms, products, dependencies)
 
